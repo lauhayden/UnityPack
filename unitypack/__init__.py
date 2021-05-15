@@ -1,7 +1,7 @@
-import pkg_resources
+from importlib.metadata import version
 
 
-__version__ = pkg_resources.require("unitypack")[0].version
+__version__ = version("unitypack")
 
 
 def load(file, env=None):
