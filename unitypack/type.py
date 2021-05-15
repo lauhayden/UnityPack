@@ -1,7 +1,8 @@
+from importlib.resources import open_binary
 from io import BytesIO
 
 from .enums import RuntimePlatform
-from .resources import STRINGS_DAT, get_resource
+from .resources import STRINGS_DAT
 from .utils import BinaryReader
 
 
@@ -102,8 +103,8 @@ class TypeMetadata:
 	def default(cls, asset):
 		if not cls.default_instance:
 			cls.default_instance = cls(asset)
-			with open(get_resource("structs.dat"), "rb") as f:
-				cls.default_instance.load(BinaryReader(f), format=15)
+			sfile = open_binary("unitypack", "struct.dat")
+			cls.default_instance.load(BinaryReader(sfile), format=15)
 		return cls.default_instance
 
 	def __init__(self, asset):
